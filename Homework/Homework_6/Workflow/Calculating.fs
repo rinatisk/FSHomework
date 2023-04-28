@@ -1,7 +1,7 @@
 ﻿module Calculating
 
 type CalculateBuilder() =
-    member this.Bind (value : string, result) =
+    member this.Bind (value: string, result) =
         match System.Int32.TryParse value with
         | (true, number) -> number |> result
         | _ -> "NaN"
