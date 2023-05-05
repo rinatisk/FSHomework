@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Supermap.fs" />
+        <Compile Include="MapiRepeat.fs" />
         <Compile Include="Rhombus.fs" />
     </ItemGroup>
 
