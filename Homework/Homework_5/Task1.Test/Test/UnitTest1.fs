@@ -6,27 +6,38 @@ open Network
 open System.Collections.Generic
 
 module Tests =
-    
-    let AlwaysInfectedOS = TypeOS("Linux", 1l)
-    
-    let AlwaysInfectedComputer = Computer(AlwaysInfectedOS)
-    AlwaysInfectedComputer.TryToInfect()
-    
-    let NeverInfectedOS = TypeOS("Win10", 0l)
-    
-    let NeverInfectedComputer = Computer(NeverInfectedOS)
-    
-    [<Test>]
-    let AllInfectedTest() =
-        let AlwaysInfectedComputer1 = Computer(AlwaysInfectedOS)
-        AlwaysInfectedComputer1.TryToInfect()
+    type AlwaysInfectComputer() =
+        let mutable isInfected = false
         
-        let AlwaysInfectedComputer2 = Computer(AlwaysInfectedOS)
-        let AlwaysInfectedComputer3 = Computer(AlwaysInfectedOS)
-        
-        let dict1 = Dictionary<Computer, Computer list>()
-        dict1.Add(AlwaysInfectedComputer1, [AlwaysInfectedComputer2; AlwaysInfectedComputer3])
-        
-        let Network = Network([AlwaysInfectedComputer1; AlwaysInfectedComputer2; AlwaysInfectedComputer3], dict1)
-        Network.UpdateState() |> should equal [true; true; true]
-                        
+        interface Computer with
+            member _.OS = TypeOS("Linux", 0.0)
+            member _.TryToInfect() = isInfected <- true
+            member _.IsInfected
+                with get() = isInfected
+
+    type NeverInfectComputer() =
+        let mutable isInfected = false
+
+        interface Computer with
+            member _.OS = TypeOS("Linux", 1.0)
+            member _.TryToInfect () = ()
+            member _.IsInfected
+                with get() = isInfected
+                
+    let createNetwork (a: Computer) (b: Computer list) (c: Computer list) =
+
+
+        let connections = Dictionary<Computer, Computer list>()
+
+        connections.Add (a, b)
+
+        connections.Add (b.[0], [a; b.[1]; c.[0]])
+        connections.Add (b.[1], [a; b.[0]; c.[1]; c.[2]])
+
+        connections.Add (c.[0], [b.[0]])
+        connections.Add (c.[1], [b.[1]])
+        connections.Add (c.[2], [b.[1]])
+
+        let computers = [a::b; c] |> List.concat
+
+        Network(computers, connections)
