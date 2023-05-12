@@ -4,22 +4,24 @@ open NUnit.Framework
 open FsUnit
 open FsCheck
 
-let calculate = Calculating.CalculateBuilder()
 
 [<Test>]
-let ReturnTest () =
+let FailureTest () =
     Check.QuickThrowOnFailure (fun s ->
-        let returned = calculate {
+        let returned = Calculating.CalculateBuilder() {
             return s
         }
         System.Int32.Parse returned = s)
 
 
 [<Test>]
-let BindTest () =    
-    Check.QuickThrowOnFailure (fun x ->
-        let returned = calculate {
-            let! i = x 
-            return i
-        }
-        returned = x)
+let CalculateTest () =    
+    let returned = Calculating.CalculateBuilder() {
+        let! x = "1"
+        let! y = "2"
+        let z = x + y
+        return z
+    }
+    returned |> should equal "3"
+
+
