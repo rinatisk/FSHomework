@@ -2,13 +2,21 @@ module Task1.Test
 
 open NUnit.Framework
 open FsUnit
-open Program
+open BracketsChecker
+
 
 [<Test>]
-let Test() =
+let TestEmpty() =
     let empty = ""
-    let incorrect = "(((())"
-    let different = "(){}[]"
     isCorrect empty |> should equal true
+   
+[<Test>]    
+let TestCorrect() =
+    let different = "(){}[]"
+    BracketsChecker.isCorrect different |> should equal true
+    
+[<Test>]
+let TestIncorrect() =
+    let incorrect = "(((())"
     isCorrect incorrect |> should equal false
-    isCorrect different |> should equal true
+
