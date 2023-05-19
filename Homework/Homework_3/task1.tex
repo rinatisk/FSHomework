@@ -3,10 +3,17 @@
 
 \begin{document}
 
-\[((\lambda a.(\lambda b.b\ b)\ (\lambda b.b\ b))\ b)\ ((\lambda c.(c\ b))\ (\lambda a.a)) \rightarrow_\beta\]
-\[((\lambda b.b\ b)\ (\lambda b.b\ b))\ ((\lambda c.(c\ b))\ (\lambda a.a)) \rightarrow_\beta\]
-\[\Omega\ ((\lambda c.(c\ b))\ (\lambda a.a)) \rightarrow_\beta\]
-\[\Omega\ ((\lambda a.a)\ b) \rightarrow_\beta\]
-\[\Omega\ b\]
 
+    $$S K K = (\lambda x y z.x z (y z)) (\lambda x y.x) (\lambda x y.x) $$
+    $$= (\lambda x.\lambda y.\lambda z.x z (y z))(\lambda x.\lambda y.x) (\lambda x.\lambda y.x)$$
+    $$\xrightarrow[\beta]{} (\lambda y.\lambda z.(\lambda x.\lambda y.x) z (y z)) (\lambda x.\lambda y.x)$$
+    $$\xrightarrow[\beta]{} \lambda z.(\lambda x.\lambda y.x) z ((\lambda x.\lambda y.x) z)$$
+    $$\xrightarrow[\beta]{} \lambda z.(\lambda x.\lambda y.x) z \lambda y.z$$
+    $$\xrightarrow[\beta]{} \lambda z.(\lambda y.z) \lambda y.z
+    \xrightarrow[\beta]{} \lambda z.z = I$$
+
+    $$ ((\lambda a.(\lambda b.b b) (\lambda b.b b)) b
+    ((\lambda c.(c\:b)) (\lambda a.a))\xrightarrow[\beta]{}$$
+    $$((\lambda b.b)(\lambda b.b))((\lambda c.(c b))(\lambda a.a))\xrightarrow[\beta]{}$$
+    $$((\lambda b.b)(\lambda b.b))((\lambda a.a) b)\xrightarrow[\beta]{}(\lambda b.b)(\lambda b.b) b$$
 \end{document}
