@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net7.0</TargetFramework>
+        <RootNamespace>Homework</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="homework1\task1.fs" />
+        <Compile Include="homework1\task2.fs" />
+        <Compile Include="homework1\task3.fs" />
+        <Compile Include="homework1\task4.fs" />
+        <Compile Include="homework1\task5.fs" />
+    </ItemGroup>
+
+</Project>
