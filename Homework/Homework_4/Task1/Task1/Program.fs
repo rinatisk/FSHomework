@@ -1,11 +1,14 @@
 ﻿module BracketsChecker
-let brackets = Map ['(',')';'[',']';'{','}']
-let isCorrect (input: string) = 
-    let rec isCorrectRec str stack =
-        match str, stack with
-        | [], [] -> true
-        | [], _ -> false
-        | h :: t, _ when brackets.Keys |> Seq.contains h -> isCorrectRec t (h::stack)
-        | h :: t, h2 :: t2 when brackets.Values |> Seq.contains h && brackets.TryFind h = Some h2 -> isCorrectRec t t2
-        | _ :: t, _ -> isCorrectRec t stack 
-    isCorrectRec (Seq.toList input) []
+let brackets = Map ['}', '{'; ')', '('; ']', '[']
+let isCorrect str =
+    let rec isCorrectRecursive str (stack: char list) =
+        match str with
+        | [] -> stack.IsEmpty
+        | h :: t when brackets.Values.Contains h -> isCorrectRecursive t (h :: stack)
+        | h :: t when brackets.Keys.Contains h ->
+            match stack with
+            | [] -> false
+            | h2 :: t2 when h2 = brackets[h] -> isCorrectRecursive t t2
+            | _ -> false
+        | _ :: t -> isCorrectRecursive t stack
+    isCorrectRecursive (Seq.toList str) []
