@@ -1,7 +1,7 @@
 ﻿module PhoneBook.CLI
 
 open System
-open PhoneBook
+open Phonebook
 open System.IO
 
 let readNumbersFromFile file phoneBook =

@@ -1,4 +1,4 @@
-﻿module PhoneBook
+﻿module Phonebook
 
 let initPhoneBook() =
     Map.empty<string, string>
